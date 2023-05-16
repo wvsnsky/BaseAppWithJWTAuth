@@ -1,0 +1,39 @@
+.background-gradient {
+  background: linear-gradient(90deg, rgba(150,175,255,1) 0%, rgba(56,103,255,1) 50%, rgba(76,0,255,1) 100%);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.card-container {
+  height: 22em;
+  width: 30em;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.submit-button button {
+  color: white;
+  background-color: rgba(56,103,255,1);
+}
+
+a {
+  text-decoration: none;
+}
