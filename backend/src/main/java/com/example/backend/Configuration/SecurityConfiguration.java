@@ -1,8 +1,8 @@
 package com.example.backend.Configuration;
 
 import com.example.backend.JWT.JwtTokenFilter;
-import com.example.backend.User.User;
-import com.example.backend.User.UserRepository;
+import com.example.backend.Entity.User;
+import com.example.backend.Repository.UserRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

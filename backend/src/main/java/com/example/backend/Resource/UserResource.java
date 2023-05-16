@@ -1,7 +1,10 @@
-package com.example.backend.User;
+package com.example.backend.Resource;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.backend.DTO.UserAuthRequestDTO;
+import com.example.backend.DTO.UserAuthResponseDTO;
+import com.example.backend.Entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
