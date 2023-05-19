@@ -10,7 +10,8 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard]}
-    ]
+    ],
+    canActivate: [AuthGuard]
   }
 ];
 

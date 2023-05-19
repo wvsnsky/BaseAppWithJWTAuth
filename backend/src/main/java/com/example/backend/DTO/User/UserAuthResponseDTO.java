@@ -1,4 +1,4 @@
-package com.example.backend.DTO;
+package com.example.backend.DTO.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
