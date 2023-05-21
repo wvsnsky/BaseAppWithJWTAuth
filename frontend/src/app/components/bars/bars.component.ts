@@ -1,6 +1,7 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {Router} from "@angular/router";
+import {RoleService} from "../../services/role/role.service";
 
 @Component({
   selector: 'app-bars',
@@ -8,10 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./bars.component.scss']
 })
 export class BarsComponent {
-
-  constructor(private router: Router) {
-  }
-
+  constructor(private router: Router, private roleService: RoleService) {}
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
 
   toggleSidenav() {
@@ -22,4 +20,9 @@ export class BarsComponent {
     localStorage.removeItem('accessToken');
     this.router.navigate(['/login']);
   }
+
+  isAdmin(): boolean {
+    return this.roleService.getCurrentUserRoles().includes('ROLE_ADMIN');
+  }
+
 }

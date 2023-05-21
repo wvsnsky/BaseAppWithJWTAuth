@@ -70,8 +70,9 @@ public class SecurityConfiguration {
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // app not caching user data on backend after auth
         http.authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .antMatchers("/hello").hasRole("ADMIN") // its really important to save roles on base like "ROLE_ADMIN", "ROLE_USER" etc.
+                .antMatchers("/api/auth/login").permitAll()
+                // i.e. .antMatchers("/hello").hasRole("ADMIN") - its really important to save roles on base like "ROLE_ADMIN", "ROLE_USER" etc.
+                .antMatchers("/api/users").hasRole("ADMIN")
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class); // before every request which need to be authenticated user, do jwtTokenFilter
         return http.build();

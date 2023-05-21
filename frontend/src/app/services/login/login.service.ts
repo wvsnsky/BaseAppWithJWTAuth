@@ -10,9 +10,11 @@ export type EntityResponseType = HttpResponse<UserAuth>
 })
 export class LoginService {
 
+  resourceUrl = '/api/auth/login'
+
   constructor(private httpClient: HttpClient) { }
 
   login(payload: any): Observable<EntityResponseType> {
-    return this.httpClient.post<UserAuth>('http://localhost:8080/auth/login', payload, {observe: 'response'})
+    return this.httpClient.post<UserAuth>(this.resourceUrl, payload, {observe: 'response'})
   }
 }

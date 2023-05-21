@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 public class UserResource {
 
     private static final String ENTITY_NAME = "user";
@@ -63,12 +64,12 @@ public class UserResource {
         }
     }
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok().body(userService.save(userDTO));
     }
 
-    @PutMapping("/user")
+    @PutMapping("/users")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
         if (userDTO.getId() == null) {
@@ -80,21 +81,21 @@ public class UserResource {
                 .body(result);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         log.debug("REST request to get all Users");
         List<UserDTO> usersList = userService.findAll();
         return new ResponseEntity<>(usersList, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         log.debug("REST request to get User with id: {}", id);
         Optional<UserDTO> userDTO = userService.findOne(id);
         return ResponseUtil.wrapOrNotFound(userDTO);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         log.debug("REST request to delete User with id: {}", id);
         try {
