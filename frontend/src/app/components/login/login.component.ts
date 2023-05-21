@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.userAuth = res.body;
         if (this.userAuth) {
           localStorage.setItem('accessToken', this.userAuth.accessToken);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
         }
       },
       err => {

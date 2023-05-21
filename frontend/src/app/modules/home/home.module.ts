@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { HomeRoutingModule } from './home-routing.module';
 import {RouterModule} from "@angular/router";
-import {DashboardComponent} from "../../components/dashboard/dashboard.component";
+import {HomeComponent} from "../../components/home/home.component";
 import {BarsComponent} from "../../components/bars/bars.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -14,13 +14,13 @@ import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    HomeComponent,
     BarsComponent
   ],
   imports: [
     RouterModule,
     CommonModule,
-    DashboardRoutingModule,
+    HomeRoutingModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
@@ -28,4 +28,4 @@ import {MatButtonModule} from "@angular/material/button";
     MatButtonModule
   ]
 })
-export class DashboardModule { }
+export class HomeModule { }

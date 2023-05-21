@@ -18,7 +18,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {RouterModule} from "@angular/router";
 import { ContactComponent } from './components/contact/contact.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
-import {DashboardModule} from "./modules/dashboard/dashboard.module";
+import {HomeModule} from "./modules/home/home.module";
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import {DashboardModule} from "./modules/dashboard/dashboard.module";
   ],
   imports: [
     RouterModule,
-    DashboardModule,
+    HomeModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
