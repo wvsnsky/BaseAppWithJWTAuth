@@ -6,10 +6,15 @@ import com.example.backend.DTO.User.UserAuthRequestDTO;
 import com.example.backend.DTO.User.UserAuthResponseDTO;
 import com.example.backend.DTO.User.UserDTO;
 import com.example.backend.Entity.User;
+import com.example.backend.Service.Criteria.UserCriteria;
 import com.example.backend.Service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +23,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 import java.util.List;
@@ -81,11 +88,19 @@ public class UserResource {
                 .body(result);
     }
 
+//    @GetMapping("/users")
+//    public ResponseEntity<List<UserDTO>> getAllUsers() {
+//        log.debug("REST request to get all Users");
+//        List<UserDTO> usersList = userService.findAll();
+//        return new ResponseEntity<>(usersList, HttpStatus.OK);
+//    }
+
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        log.debug("REST request to get all Users");
-        List<UserDTO> usersList = userService.findAll();
-        return new ResponseEntity<>(usersList, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getFilteredUsers(String filterCriteria, int pageNumber, int pageSize) throws JsonProcessingException {
+        UserCriteria criteria = new ObjectMapper().readValue(filterCriteria, UserCriteria.class);
+        Page<UserDTO> usersPage = userService.getFilteredUsers(criteria, pageNumber, pageSize);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), usersPage);
+        return ResponseEntity.ok().headers(headers).body(usersPage.getContent());
     }
 
     @GetMapping("/users/{id}")

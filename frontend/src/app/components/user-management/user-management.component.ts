@@ -10,12 +10,24 @@ import {User} from "../../models/user/user.model";
 export class UserManagementComponent implements OnInit {
 
   users: User[] | undefined;
+  filterCriteria: any = {
+    "email": "2"
+  };
+  pageNumber: number = 0;
+  pageSize: number = 10;
 
   constructor(protected userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.userService.findAllUsers().subscribe(res => this.users = res);
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.getFilteredUsers(this.filterCriteria, this.pageNumber, this.pageSize)
+      .subscribe((response: any) => {
+        this.users = response;
+      });
   }
 
 }

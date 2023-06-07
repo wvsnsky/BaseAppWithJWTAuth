@@ -10,11 +10,12 @@
   <mat-sidenav #sidenav mode="side">
     <mat-nav-list>
       <a *ngIf="isAdmin()" mat-list-item routerLink="/user-management" routerLinkActive="active">User management</a>
+      <a mat-list-item routerLink="/contact" routerLinkActive="active">Contact</a>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div style="height: 88vh">
+    <div style="height: 95vh">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
