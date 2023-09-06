@@ -5,14 +5,24 @@ import {UserManagementComponent} from "../../components/user-management/user-man
 import {AuthGuard} from "../../guards/auth.guard";
 import {AdminGuard} from "../../guards/admin.guard";
 import {ContactComponent} from "../../components/contact/contact.component";
+import { EditUserComponent } from 'src/app/components/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      {path: 'user-management', component: UserManagementComponent, canActivate: [AdminGuard]},
-      {path: 'contact', component: ContactComponent, canActivate: [AuthGuard]}
+      {
+        path: 'user-management',
+        canActivate: [AdminGuard],
+        children: [
+          { path: '', component: UserManagementComponent },
+          { path: 'edit/:userId', component: EditUserComponent }
+        ]
+      },
+      {
+        path: 'contact', component: ContactComponent, canActivate: [AuthGuard]
+      }
     ],
     canActivate: [AuthGuard],
   }

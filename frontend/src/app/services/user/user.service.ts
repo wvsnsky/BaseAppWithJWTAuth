@@ -11,13 +11,17 @@ export class UserService {
   private resourceUrl = '/api/users'
   constructor(private http: HttpClient) { }
 
-  getFilteredUsers(filterCriteria: any, pageNumber: number, pageSize: number): Observable<any> {
+  getFilteredUsers(filterCriteria: any, pageNumber: number, pageSize: number): Observable<User[]> {
     let params = new HttpParams()
       .set('filterCriteria', JSON.stringify(filterCriteria))
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
 
-    return this.http.get(this.resourceUrl, { params });
+    return this.http.get<User[]>(this.resourceUrl, { params });
+  }
+
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.resourceUrl}/${userId}`);
   }
 
 }

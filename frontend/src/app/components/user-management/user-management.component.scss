@@ -1,0 +1,40 @@
+.card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header {
+  background: rgba(56,103,255,1);
+  color: white;
+}
+
+.mat-header-cell,
+.mat-cell {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.mat-column-id,
+.mat-column-actions,
+.mat-column-email,
+.mat-column-role {
+  flex: 1;
+  min-width: 0;
+}
+
+.mat-column-actions {
+  flex-basis: 10%;
+}
+
+.mat-column-id {
+  flex-basis: 5%;
+}
+
+.mat-column-email,
+.mat-column-role {
+  flex-basis: 42.5%;
+}

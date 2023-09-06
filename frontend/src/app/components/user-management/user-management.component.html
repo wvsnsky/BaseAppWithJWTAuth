@@ -1,7 +1,43 @@
-<tbody *ngIf="users">
-  <tr *ngFor="let user of users">
-    <td>{{user.id}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.role}}</td>
-  </tr>
-</tbody>
+<mat-card class="card">
+  <ng-container *ngIf="users">
+    <mat-table [dataSource]="users">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>
+          <span style="color: white">ID</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>
+          <span style="color: white">Email</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef>
+          <span style="color: white">Role</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user">{{ user.role }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          <span style="color: white">Actions</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <button mat-icon-button [routerLink]="['/user-management/edit/' + user.id]" routerLinkActive="active">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row class="table-header" *matHeaderRowDef="['id', 'email', 'role', 'actions']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['id', 'email', 'role', 'actions']"></mat-row>
+    </mat-table>
+  </ng-container>
+</mat-card>
