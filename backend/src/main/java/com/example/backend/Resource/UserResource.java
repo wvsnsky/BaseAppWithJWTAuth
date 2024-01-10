@@ -24,7 +24,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -36,7 +35,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class UserResource {
 
-    private static final String ENTITY_NAME = "user";
     @Value("${application.name}")
     private String applicationName;
     private static final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -72,28 +70,21 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-    public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok().body(userService.save(userDTO));
     }
 
     @PutMapping("/users")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
-        log.debug("REST request to update User : {}", userDTO);
-        if (userDTO.getId() == null) {
-            throw new RuntimeException("Social network post not found: " + userDTO);
-        }
-        UserDTO result = userService.save(userDTO);
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, userDTO.getId().toString()))
-                .body(result);
+        userService.updateUser(userDTO);
+        return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserDTO>> getAllUsers() {
-//        log.debug("REST request to get all Users");
-//        List<UserDTO> usersList = userService.findAll();
-//        return new ResponseEntity<>(usersList, HttpStatus.OK);
-//    }
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        Optional<UserDTO> userDTO = userService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(userDTO);
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getFilteredUsers(String filterCriteria, int pageNumber, int pageSize) throws JsonProcessingException {
@@ -103,16 +94,8 @@ public class UserResource {
         return ResponseEntity.ok().headers(headers).body(usersPage.getContent());
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-        log.debug("REST request to get User with id: {}", id);
-        Optional<UserDTO> userDTO = userService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(userDTO);
-    }
-
     @DeleteMapping("/users/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
-        log.debug("REST request to delete User with id: {}", id);
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
         try {
             userService.delete(id);
             return ResponseEntity.ok().build();

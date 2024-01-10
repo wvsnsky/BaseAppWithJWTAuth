@@ -60,6 +60,18 @@ public class UserService {
         return userRepository.findAll(specification, pageable).map(userMapper::toDto);
     }
 
+    public void updateUser(UserDTO userDTO) {
+        Optional<User> existingUser = userRepository.findById(userDTO.getId());
+        if (existingUser.isPresent()) {
+            User userToUpdate = existingUser.get();
+
+            userToUpdate.setEmail(userDTO.getEmail());
+            userToUpdate.setRole(userDTO.getRole());
+
+            userRepository.save(userToUpdate);
+        }
+    }
+
     private Specification<User> createSpecification(UserCriteria filterCriteria) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
